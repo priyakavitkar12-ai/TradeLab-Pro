@@ -1,0 +1,25 @@
+{
+    "application": {
+        "name": "TradeLab Pro",
+        "version": "1.0.0",
+        "theme": "dark",
+        "debug": true
+    },
+    "database": {
+        "type": "sqlite",
+        "path": "database/tradelab.db"
+    },
+    "logging": {
+        "level": "INFO",
+        "file": "logs/application.log"
+    },
+    "backtesting": {
+        "default_capital": 100000,
+        "brokerage": 20,
+        "slippage": 0.05
+    },
+    "data": {
+        "market": "NSE",
+        "timezone": "Asia/Kolkata"
+    }
+}
