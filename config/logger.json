@@ -1,0 +1,8 @@
+{
+    "logger": {
+        "level": "INFO",
+        "console": true,
+        "file": "logs/application.log",
+        "format": "%(asctime)s | %(levelname)s | %(message)s"
+    }
+}
