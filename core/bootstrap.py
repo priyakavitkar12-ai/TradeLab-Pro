@@ -10,6 +10,7 @@ from database.database_manager import DatabaseManager
 from utils.logger_manager import LoggerManager
 from core.ui_manager import UIManager
 
+
 class Bootstrap:
     """
     Starts all core services in the correct order.
@@ -28,11 +29,12 @@ class Bootstrap:
 
         # Initialize Database
         DatabaseManager.initialize()
-
         LoggerManager.info("Database initialized.")
 
+        # Initialize UI
         UIManager.initialize()
 
+        # Application Information
         LoggerManager.info(
             f"Application : {config.get('application.name')}"
         )
@@ -42,3 +44,6 @@ class Bootstrap:
         )
 
         LoggerManager.info("Bootstrap completed.")
+
+        # Start Qt Event Loop
+        UIManager.run()
