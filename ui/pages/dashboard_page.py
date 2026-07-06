@@ -3,24 +3,83 @@ TradeLab Pro
 Dashboard Page
 """
 
-from PySide6.QtWidgets import QWidget, QLabel, QVBoxLayout
+from PySide6.QtCore import Qt
+from PySide6.QtWidgets import (
+    QWidget,
+    QVBoxLayout,
+    QGridLayout,
+)
+
+from ui.widgets.common.header import Header
+from ui.widgets.cards.dashboard_card import DashboardCard
 
 
 class DashboardPage(QWidget):
+    """
+    Dashboard Page
+    """
 
     def __init__(self):
         super().__init__()
 
-        layout = QVBoxLayout()
+        # Main Layout
+        main_layout = QVBoxLayout(self)
 
-        title = QLabel("TradeLab Pro Dashboard")
+        # Header
+        header = Header("Dashboard")
+        main_layout.addWidget(header)
 
-        title.setStyleSheet("""
-            font-size:24px;
-            font-weight:bold;
-            padding:20px;
-        """)
+        # Card Grid
+        grid = QGridLayout()
+        grid.setSpacing(20)
+        grid.setAlignment(Qt.AlignTop)
 
-        layout.addWidget(title)
+        # Card 1
+        grid.addWidget(
+            DashboardCard(
+                "NSE Stocks",
+                "2345",
+                "Available"
+            ),
+            0,
+            0
+        )
 
-        self.setLayout(layout)
+        # Card 2
+        grid.addWidget(
+            DashboardCard(
+                "Watchlist",
+                "12",
+                "Stocks"
+            ),
+            0,
+            1
+        )
+
+        # Card 3
+        grid.addWidget(
+            DashboardCard(
+                "Scanner Hits",
+                "5",
+                "Today"
+            ),
+            0,
+            2
+        )
+
+        # Card 4
+        grid.addWidget(
+            DashboardCard(
+                "Open Trades",
+                "2",
+                "Running"
+            ),
+            0,
+            3
+        )
+
+        # Add Grid to Main Layout
+        main_layout.addLayout(grid)
+
+        # Push everything to top
+        main_layout.addStretch()
