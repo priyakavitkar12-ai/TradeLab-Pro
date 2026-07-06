@@ -46,7 +46,7 @@ class LoggerManager:
     "logs/application.log",
     level="INFO",
     rotation="10 MB",
-    retention="30 days",python main.py
+    retention="30 days",
     enqueue=True,
     format="{time:YYYY-MM-DD HH:mm:ss} | {level} | {message}"
 )

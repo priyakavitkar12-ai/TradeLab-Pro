@@ -3,13 +3,19 @@ TradeLab Pro
 Main Window
 """
 
+from PySide6.QtCore import Qt
 from PySide6.QtWidgets import (
     QMainWindow,
     QLabel,
     QStatusBar,
+    QListWidget,
+    QDockWidget,
+    QWidget,
+    QVBoxLayout,
 )
 
 from ui.menu_bar import MenuBar
+from ui.tool_bar import ToolBar
 
 
 class MainWindow(QMainWindow):
@@ -23,16 +29,59 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("TradeLab Pro")
         self.resize(1400, 900)
 
-        self._build_ui()
-
-    def _build_ui(self):
-        # Create menu bar
+        # Menu & Toolbar
         MenuBar(self)
+        ToolBar(self)
 
-        # Create central label
-        label = QLabel("Welcome to TradeLab Pro")
-        self.setCentralWidget(label)
+        # Navigation
+        self.create_navigation()
 
-        # Create status bar
+        # Dashboard
+        self.create_dashboard()
+
+        # Status Bar
+        self.create_statusbar()
+
+    def create_navigation(self):
+
+        self.navigation = QListWidget()
+
+        self.navigation.addItems([
+            "🏠 Dashboard",
+            "📈 Scanner",
+            "🧠 Strategy Builder",
+            "📊 Backtesting",
+            "📑 Reports",
+            "⚙ Settings"
+        ])
+
+        dock = QDockWidget("Navigation", self)
+        dock.setAllowedAreas(Qt.LeftDockWidgetArea)
+        dock.setWidget(self.navigation)
+
+        self.addDockWidget(Qt.LeftDockWidgetArea, dock)
+
+    def create_dashboard(self):
+
+        widget = QWidget()
+
+        layout = QVBoxLayout()
+
+        title = QLabel("TradeLab Pro Dashboard")
+        title.setStyleSheet("""
+            font-size:24px;
+            font-weight:bold;
+            padding:20px;
+        """)
+
+        layout.addWidget(title)
+
+        widget.setLayout(layout)
+
+        self.setCentralWidget(widget)
+
+    def create_statusbar(self):
+
         self.setStatusBar(QStatusBar())
+
         self.statusBar().showMessage("Ready")
