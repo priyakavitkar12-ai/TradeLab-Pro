@@ -16,7 +16,7 @@ from PySide6.QtWidgets import (
 
 from ui.menu_bar import MenuBar
 from ui.tool_bar import ToolBar
-
+from ui.page_manager import PageManager
 
 class MainWindow(QMainWindow):
     """
@@ -32,6 +32,8 @@ class MainWindow(QMainWindow):
         # Menu & Toolbar
         MenuBar(self)
         ToolBar(self)
+
+        self.page_manager = PageManager()
 
         # Navigation
         self.create_navigation()
@@ -78,7 +80,7 @@ class MainWindow(QMainWindow):
 
         widget.setLayout(layout)
 
-        self.setCentralWidget(widget)
+        self.setCentralWidget(self.page_manager)
 
     def create_statusbar(self):
 
