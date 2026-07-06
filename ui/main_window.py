@@ -4,19 +4,13 @@ Main Window
 """
 
 from PySide6.QtCore import Qt
-from PySide6.QtWidgets import (
-    QMainWindow,
-    QLabel,
-    QStatusBar,
-    QListWidget,
-    QDockWidget,
-    QWidget,
-    QVBoxLayout,
-)
+from PySide6.QtWidgets import QMainWindow, QStatusBar
 
 from ui.menu_bar import MenuBar
 from ui.tool_bar import ToolBar
 from ui.page_manager import PageManager
+from ui.navigation_panel import NavigationPanel
+
 
 class MainWindow(QMainWindow):
     """
@@ -29,61 +23,30 @@ class MainWindow(QMainWindow):
         self.setWindowTitle("TradeLab Pro")
         self.resize(1400, 900)
 
-        # Menu & Toolbar
+        # Menu
         MenuBar(self)
+
+        # Toolbar
         ToolBar(self)
 
+        # Page Manager
         self.page_manager = PageManager()
+        self.setCentralWidget(self.page_manager)
 
-        # Navigation
-        self.create_navigation()
-
-        # Dashboard
-        self.create_dashboard()
+        # Navigation Panel
+        self.navigation = NavigationPanel(self)
+        self.addDockWidget(
+            Qt.LeftDockWidgetArea,
+            self.navigation
+        )
 
         # Status Bar
         self.create_statusbar()
 
-    def create_navigation(self):
-
-        self.navigation = QListWidget()
-
-        self.navigation.addItems([
-            "🏠 Dashboard",
-            "📈 Scanner",
-            "🧠 Strategy Builder",
-            "📊 Backtesting",
-            "📑 Reports",
-            "⚙ Settings"
-        ])
-
-        dock = QDockWidget("Navigation", self)
-        dock.setAllowedAreas(Qt.LeftDockWidgetArea)
-        dock.setWidget(self.navigation)
-
-        self.addDockWidget(Qt.LeftDockWidgetArea, dock)
-
-    def create_dashboard(self):
-
-        widget = QWidget()
-
-        layout = QVBoxLayout()
-
-        title = QLabel("TradeLab Pro Dashboard")
-        title.setStyleSheet("""
-            font-size:24px;
-            font-weight:bold;
-            padding:20px;
-        """)
-
-        layout.addWidget(title)
-
-        widget.setLayout(layout)
-
-        self.setCentralWidget(self.page_manager)
-
     def create_statusbar(self):
+        """
+        Create application status bar.
+        """
 
         self.setStatusBar(QStatusBar())
-
         self.statusBar().showMessage("Ready")
