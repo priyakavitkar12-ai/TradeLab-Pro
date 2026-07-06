@@ -9,6 +9,8 @@ from PySide6.QtWidgets import (
     QStatusBar,
 )
 
+from ui.menu_bar import MenuBar
+
 
 class MainWindow(QMainWindow):
     """
@@ -24,11 +26,13 @@ class MainWindow(QMainWindow):
         self._build_ui()
 
     def _build_ui(self):
+        # Create menu bar
+        MenuBar(self)
 
+        # Create central label
         label = QLabel("Welcome to TradeLab Pro")
-
         self.setCentralWidget(label)
 
+        # Create status bar
         self.setStatusBar(QStatusBar())
-
         self.statusBar().showMessage("Ready")
